@@ -14,13 +14,10 @@ class App extends Component {
   }
 
   countDays(filter) {
-    return this.state.allSkiDays.filter(day => {
-      if (filter) {
-        return day[filter];
-      } else {
-        return day;
-      }
-    }).length;
+    const { allSkiDays } = this.state;
+    return allSkiDays.filter(day => (
+      filter ? day[filter] : day
+    )).length;
   }
 
   render() {
