@@ -3,7 +3,7 @@ import React from 'react';
 // import SnowFlake from 'react-icons/lib/ti/weather-snow';
 // import Calendar from 'react-icons/lib/fa/calendar';
 import SkiDayRow from './SkiDayRow';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const SkiDayList = ({ days }) => {
   return (
@@ -31,7 +31,15 @@ const SkiDayList = ({ days }) => {
 };
 
 SkiDayList.propTypes = {
-  days: PropTypes.array
+  days: function(props) {
+    if (!Array.isArray(props.days)) {
+      return new Error('SkiDayList should be an array!');
+    } else if (!props.days.length) {
+      return new Error('SkiDayList must have at least one record!');
+    } else {
+      return null;
+    }
+  }
 };
 
 export default SkiDayList;

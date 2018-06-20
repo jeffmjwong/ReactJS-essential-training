@@ -9,7 +9,7 @@ const percentToDecimal = decimal => `${decimal * 100}%`;
 
 const calcGoalProgress = (total, goal) => percentToDecimal(total / goal);
 
-const SkiDayCount = ({ total=70, powder=60, backcountry=50, goal=700 }) => (
+const SkiDayCount = ({ total=70, powder=60, backcountry=50, goal=100 }) => (
   <div className='ski-day-count'>
 
     <div className='total-days'>
