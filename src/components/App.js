@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SkiDayList from './SkiDayList';
 import SkiDayCount from './SkiDayCount';
+import AddDayForm from './AddDayForm';
 
 const days = [
   { resort: 'Squaw Valley', date: new Date('1/2/2016'), powder: true, backcountry: false },
@@ -23,11 +24,16 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <SkiDayList days={ this.state.allSkiDays } />
-        <SkiDayCount
-          total={ this.countDays() }
-          powder={ this.countDays('powder') }
-          backcountry={ this.countDays('backcountry') } />
+        {
+          (this.props.location.pathname === '/') ?
+            <SkiDayCount
+              total={ this.countDays() }
+              powder={ this.countDays('powder') }
+              backcountry={ this.countDays('backcountry') } /> :
+            (this.props.location.pathname === '/add-day') ?
+              <AddDayForm /> :
+              <SkiDayList days={ this.state.allSkiDays } />
+        }
       </div>
     );
   }
