@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SkiDayList from './SkiDayList';
 import SkiDayCount from './SkiDayCount';
 import AddDayForm from './AddDayForm';
+import Menu from './Menu';
 
 const days = [
   { resort: 'Squaw Valley', date: new Date('1/2/2016'), powder: true, backcountry: false },
@@ -23,7 +25,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className='App'>
+      <div className='app'>
+        <Menu />
         {
           (this.props.location.pathname === '/') ?
             <SkiDayCount
@@ -32,11 +35,16 @@ class App extends Component {
               backcountry={ this.countDays('backcountry') } /> :
             (this.props.location.pathname === '/add-day') ?
               <AddDayForm /> :
-              <SkiDayList days={ this.state.allSkiDays } />
+              <SkiDayList days={ this.state.allSkiDays } filter={ this.props.params.filter } />
         }
       </div>
     );
   }
 }
+
+App.propTypes = {
+  location: PropTypes.object,
+  params: PropTypes.object
+};
 
 export default App;
