@@ -1,7 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const AddDayForm = ({ resort, date, powder, backcountry, onNewDay }) => {
+const tahoeResorts = [
+  'Alpine Meadows',
+  'Boreal',
+  'Diamond Peak',
+  'Donner Ski Ranch',
+  'Heavenly',
+  'Homewood',
+  'Kirkwood',
+  'Mt. Rose',
+  'Northstar',
+  'Squaw Valley',
+  'Sugar Bowl'
+];
+
+class Autocomplete extends Component {
+  get value() {
+    return this.refs.inputResort.value;
+  }
+
+  set value(inputValue) {
+    this.refs.inputResort.value = inputValue;
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" list="tahoe-resorts" ref="inputResort" />
+        <datalist id="tahoe-resorts">
+          { this.props.options.map((option, index) => {
+            return (
+              <option key={ index }>{ option }</option>
+            );
+          }) }
+        </datalist>
+      </div>
+    );
+  }
+}
+
+const AddDayForm = ({ date, powder, backcountry, onNewDay }) => {
 
   let _resort, _date, _powder, _backcountry;
 
@@ -22,8 +61,7 @@ const AddDayForm = ({ resort, date, powder, backcountry, onNewDay }) => {
   return (
     <form className="add-day-form" onSubmit={ submit }>
       <label htmlFor="resort">Resort Name</label>
-      <input id="resort" type="text"
-        defaultValue={ resort } ref={ input => _resort = input } required />
+      <Autocomplete options={ tahoeResorts } ref={ input => _resort = input } required />
 
       <label htmlFor="date">Date</label>
       <input id="date" type="date"
@@ -59,6 +97,10 @@ AddDayForm.propTypes = {
   powder: PropTypes.bool.isRequired,
   backcountry: PropTypes.bool.isRequired,
   onNewDay: PropTypes.func.isRequired
+};
+
+Autocomplete.propTypes = {
+  options: PropTypes.array.isRequired
 };
 
 export default AddDayForm;
